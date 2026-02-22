@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:480px; margin:0 auto; background:#fff; padding:2rem; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,.1);">
+  <h2 style="margin-bottom:1.5rem; font-size:1.2rem;">{{ 'Edit Item' if item else 'Add Item' }}</h2>
+  <form method="post">
+    <div style="margin-bottom:1rem;">
+      <label style="display:block; font-size:0.9rem; margin-bottom:0.3rem;">Name *</label>
+      <input name="name" type="text" value="{{ item.name if item else '' }}" required
+        style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-size:1rem;">
+    </div>
+    <div style="margin-bottom:1rem;">
+      <label style="display:block; font-size:0.9rem; margin-bottom:0.3rem;">Quantity</label>
+      <input name="quantity" type="number" step="any" min="0" value="{{ item.quantity if item else '' }}"
+        style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-size:1rem;">
+    </div>
+    <div style="margin-bottom:1rem;">
+      <label style="display:block; font-size:0.9rem; margin-bottom:0.3rem;">Unit</label>
+      <input name="unit" type="text" placeholder="e.g. kg, lbs, pcs" value="{{ item.unit if item else '' }}"
+        style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-size:1rem;">
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <label style="display:block; font-size:0.9rem; margin-bottom:0.3rem;">Category</label>
+      <input name="category" type="text" placeholder="e.g. Produce, Dairy, Other" value="{{ item.category if item else '' }}"
+        style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-size:1rem;">
+    </div>
+    <div style="display:flex; gap:0.5rem;">
+      <button type="submit" class="btn btn-primary">{{ 'Save Changes' if item else 'Add Item' }}</button>
+      <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
