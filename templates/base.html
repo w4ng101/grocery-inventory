@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grocery Inventory</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #f4f6f8; color: #222; }
+    header { background: #2e7d32; color: #fff; padding: 1rem 2rem; display: flex; align-items: center; gap: 1rem; }
+    header h1 { font-size: 1.4rem; }
+    header a { color: #c8e6c9; text-decoration: none; font-size: 0.95rem; }
+    header a:hover { color: #fff; }
+    main { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .flash { padding: 0.7rem 1rem; border-radius: 4px; margin-bottom: 1rem; font-size: 0.95rem; }
+    .flash.success { background: #e8f5e9; border-left: 4px solid #2e7d32; color: #1b5e20; }
+    .flash.error   { background: #ffebee; border-left: 4px solid #c62828; color: #b71c1c; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+    th { background: #2e7d32; color: #fff; text-align: left; padding: 0.75rem 1rem; font-weight: 600; font-size: 0.9rem; }
+    td { padding: 0.7rem 1rem; border-bottom: 1px solid #e0e0e0; font-size: 0.95rem; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f1f8e9; }
+    .btn { display: inline-block; padding: 0.4rem 0.9rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; cursor: pointer; border: none; }
+    .btn-primary { background: #2e7d32; color: #fff; }
+    .btn-primary:hover { background: #1b5e20; }
+    .btn-secondary { background: #e0e0e0; color: #333; }
+    .btn-secondary:hover { background: #bdbdbd; }
+    .btn-danger { background: #c62828; color: #fff; }
+    .btn-danger:hover { background: #b71c1c; }
+    .actions { display: flex; gap: 0.4rem; }
+    .empty { text-align: center; padding: 3rem; color: #777; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>🛒 Grocery Inventory</h1>
+  <nav>
+    <a href="{{ url_for('index') }}">Home</a>
+    &nbsp;|&nbsp;
+    <a href="{{ url_for('add') }}">+ Add Item</a>
+  </nav>
+</header>
+<main>
+  {% for category, msg in get_flashed_messages(with_categories=true) %}
+    <div class="flash {{ category }}">{{ msg }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>
